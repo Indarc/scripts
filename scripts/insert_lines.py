@@ -5,6 +5,14 @@ import os
 
 
 def main():
+    parser = argparse.ArgumentParser(description='Insert words on each selected line in the file')
+    parser.add_argument('-s', '--step', type=int, default=0, required=True, help='Step for inserting words')
+    parser.add_argument('-w', '--word', type=str, required=True, help='Word to insert')
+    parser.add_argument('input_file', type=str, help='Input file path')
+    parser.add_argument('output_file', default='result_insert.txt', type=str, help='Path to output file')
+
+    args = parser.parse_args()
+
     if not os.path.exists(args.input_file):
         print(f'Incorrect file path [{args.input_file}]')
         exit(0)
@@ -20,12 +28,4 @@ def main():
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description='Insert words on each selected line in the file')
-    parser.add_argument('-s', '--step', type=int, default=0, required=True, help='Step for inserting words')
-    parser.add_argument('-w', '--word', type=str, required=True, help='Word to insert')
-    parser.add_argument('input_file', type=str, help='Input file path')
-    parser.add_argument('output_file', default='result_insert.txt', type=str, help='Path to output file')
-
-    args = parser.parse_args()
-
     main()

@@ -6,6 +6,15 @@ import re
 
 
 def main():
+    parser = argparse.ArgumentParser(description='Create URLs /path/to/complite --> http://example.com/path/to/complite')
+    parser.add_argument('-i', '--input', default=None, type=str, required=False, help='Input (/path/to/complite)')
+    parser.add_argument('-if', '--file', type=str, required=False, help='Path to file with url-paths')
+    parser.add_argument('-s', '--secure', action='store_true', help='Return https://...')
+    parser.add_argument('domain', type=str, help='Domain')
+    parser.add_argument('-o', '--output', type=str, default=None , required=False, help='Output file')
+
+    args = parser.parse_args()
+
     protocol = 'https://' if args.secure else 'http://'
     raw_domain = args.domain
     correct_domain = re.sub(r'^[^.]*\.', '', raw_domain)
@@ -45,13 +54,4 @@ def main():
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description='Create URLs /path/to/complite --> http://example.com/path/to/complite')
-    parser.add_argument('-i', '--input', default=None, type=str, required=False, help='Input (/path/to/complite)')
-    parser.add_argument('-if', '--file', type=str, required=False, help='Path to file with url-paths')
-    parser.add_argument('-s', '--secure', action='store_true', help='Return https://...')
-    parser.add_argument('domain', type=str, help='Domain')
-    parser.add_argument('-o', '--output', type=str, default=None , required=False, help='Output file')
-
-    args = parser.parse_args()
-
     main()
