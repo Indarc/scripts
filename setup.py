@@ -10,7 +10,8 @@ setup(
             # формат: 'имя_команды = модуль:функция'
             'copylines = scripts.copy_lines:main',
             'insertlines = scripts.insert_lines:main',
-            'urlmaker = scripts.url_maker:main'
+            'urlmaker = scripts.url_maker:main',
+            'actpoints = scripts.actuator_endpoint:main'
             ],
     },
     author='Indarc',
