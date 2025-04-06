@@ -81,10 +81,11 @@ def main():
     for root in roots:
         for word in wordlist:
             endpoint = root + word.strip()
-            check_endpoint(url, endpoint, status_filter, status_match, size_filter, size_match, lines_filter, lines_match)
+            try:
+                check_endpoint(url, endpoint, status_filter, status_match, size_filter, size_match, lines_filter, lines_match)
+            except KeyboardInterrupt:
+                pass
 
 if __name__ == "__main__":
-    try:
-        main()
-    except KeyboardInterrupt:
-        pass
+    main()
+
