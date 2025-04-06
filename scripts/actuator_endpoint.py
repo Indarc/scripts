@@ -33,7 +33,7 @@ def check_endpoint(url, endpoint, status_filter, status_match, size_filter, size
 def main():
     parser = argparse.ArgumentParser(description='Search actuator endpoints')
     parser.add_argument('-u', '--url', type=str, required=True, help="Target url")
-    parser.add_argument('-w', '--wordlist', default='./scripts/src/wordlist.txt' , type=str, required=False, help="Path to wordlist, if not set use default wordlist")
+    parser.add_argument('-w', '--wordlist', default='/home/kale/Tools/scripts/scripts/src/wordlist.txt' , type=str, required=False, help="Path to wordlist, if not set use default wordlist")
     parser.add_argument('-fc', '--filter_code', nargs='*', default=[], type=int, required=False, help="Filter by status code, use SPACE to delimit")
     parser.add_argument('-fs', '--filter_size', nargs='*', default=[], type=int, required=False, help="Filter by response size in bytes, use SPACE to delimit")
     parser.add_argument('-fl', '--filter_lines', nargs='*', default=[], type=int, required=False, help="Filter by count of lines, use SPACE to delimit")

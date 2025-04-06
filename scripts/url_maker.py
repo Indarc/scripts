@@ -37,7 +37,7 @@ def main():
 
         for line in raw_lines:
             match = re.match(r'^([^\[]+)', line)
-            url = protocol + correct_domain + match
+            url = f"{protocol}{correct_domain}{match}"
             buffer.append(url)
             print(url)
         
