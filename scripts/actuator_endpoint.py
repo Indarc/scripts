@@ -84,7 +84,7 @@ def main():
             try:
                 check_endpoint(url, endpoint, status_filter, status_match, size_filter, size_match, lines_filter, lines_match)
             except KeyboardInterrupt:
-                pass
+                return
 
 if __name__ == "__main__":
     main()
