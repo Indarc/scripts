@@ -17,14 +17,26 @@ def main():
 
     protocol = 'https://' if args.secure else 'http://'
     raw_domain = args.domain
-    correct_domain = re.sub(r'^[^.]*\.', '', raw_domain)
-    correct_domain = re.sub(r'[\[\]\{\}*$&%#@!\"\']', '', correct_domain)
+    correct_domain = re.sub(r'[^a-zA-Z0-9.-]', '', raw_domain)
+
+    buffer = []
+    pattern = r"\[.*?m(\S+)\s+\[Status"
 
     if args.input:
-        raw_input = args.input
-        if raw_input[0] != '/':
-            correct_input = '/' + raw_input
+        raw_path = args.input
+        match = re.findall(pattern, raw_path)
+        if len(match) == 0:
+            return
+        else:
+            raw_path = match[0]
+        
+        if raw_path[0] != '/':
+            correct_input = '/' + raw_path
+
+        result = f'{protocol}{correct_domain}{correct_input}'
+        buffer.append(result)
         print(f'{protocol}{correct_domain}{correct_input}')
+
     elif args.file:
         if not os.path.exists(args.file):
             print(f'Incorrect file path [{args.file}]')
@@ -33,25 +45,30 @@ def main():
         with open(args.file, 'r') as file:
             raw_lines = file.readlines()
 
-        buffer = []
-
         for line in raw_lines:
-            match = re.match(r'^([^\[]+)', line)
-            url = f"{protocol}{correct_domain}{match}"
+            match = re.findall(pattern, line)
+            if len(match) == 0:
+                continue
+            correct_path = match[0]
+            if correct_path[0] != '/':
+                correct_path = '/' + correct_path
+            url = f"{protocol}{correct_domain}{correct_path}"
             buffer.append(url)
             print(url)
         
-        if args.output:
-            if not os.path.exists(args.output):
-                mode = 'w'
-            else:
-                mode = 'a'
-            
+    if args.output:
+        if not os.path.exists(args.output):
+            mode = 'w'
+        else:
+            mode = 'a'
+        try:
             with open(args.output, mode=mode) as file:
                 for line in buffer:
-                    file.write(line)
+                    file.write(f"{line}\n")
                 print(f'Result saved in {args.output}')
-
+        except Exception as e:
+            print(f"Error with open file {args.output}")
+            print(f"Error: {e}")
 
 if __name__ == "__main__":
     main()
