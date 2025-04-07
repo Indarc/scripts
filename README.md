@@ -5,6 +5,7 @@
 - actpoints (actuator_endpoints) : generates actuator-directories and sends requests to the domain
 
 ## Installing:
+- Clone repositorie
 ```sh
 git clone https://github.com/Indarc/scripts.git
 ```
