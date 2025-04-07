@@ -6,18 +6,18 @@ import re
 
 
 def main():
-    parser = argparse.ArgumentParser(description='Create URLs /path/to/complite --> http://example.com/path/to/complite')
-    parser.add_argument('-i', '--input', default=None, type=str, required=False, help='Input (/path/to/complite)')
-    parser.add_argument('-if', '--file', type=str, required=False, help='Path to file with url-paths')
-    parser.add_argument('-s', '--secure', action='store_true', help='Return https://...')
-    parser.add_argument('domain', type=str, help='Domain')
-    parser.add_argument('-o', '--output', type=str, default=None , required=False, help='Output file')
+    parser = argparse.ArgumentParser(description="Create URLs /path/to/complite --> http://example.com/path/to/complite")
+    parser.add_argument("-i", "--input", default=None, type=str, required=False, help="Input (/path/to/complite)")
+    parser.add_argument("-if", "--file", type=str, required=False, help="Path to file with url-paths")
+    parser.add_argument("-s", "--secure", action="store_true", help="Return https://...")
+    parser.add_argument("domain", type=str, help="Domain")
+    parser.add_argument("-o", "--output", type=str, default=None, required=False, help="Output file")
 
     args = parser.parse_args()
 
-    protocol = 'https://' if args.secure else 'http://'
+    protocol = "https://" if args.secure else "http://"
     raw_domain = args.domain
-    correct_domain = re.sub(r'[^a-zA-Z0-9.-]', '', raw_domain)
+    correct_domain = re.sub(r"[^a-zA-Z0-9.-]", "", raw_domain)
 
     buffer = []
     pattern = r"\[.*?m(\S+)\s+\[Status"
@@ -29,20 +29,20 @@ def main():
             return
         else:
             raw_path = match[0]
-        
-        if raw_path[0] != '/':
-            correct_input = '/' + raw_path
 
-        result = f'{protocol}{correct_domain}{correct_input}'
+        if raw_path[0] != "/":
+            correct_input = "/" + raw_path
+
+        result = f"{protocol}{correct_domain}{correct_input}"
         buffer.append(result)
-        print(f'{protocol}{correct_domain}{correct_input}')
+        print(f"{protocol}{correct_domain}{correct_input}")
 
     elif args.file:
         if not os.path.exists(args.file):
-            print(f'Incorrect file path [{args.file}]')
+            print(f"Incorrect file path [{args.file}]")
             exit(0)
-        
-        with open(args.file, 'r') as file:
+
+        with open(args.file, "r") as file:
             raw_lines = file.readlines()
 
         for line in raw_lines:
@@ -50,25 +50,26 @@ def main():
             if len(match) == 0:
                 continue
             correct_path = match[0]
-            if correct_path[0] != '/':
-                correct_path = '/' + correct_path
+            if correct_path[0] != "/":
+                correct_path = "/" + correct_path
             url = f"{protocol}{correct_domain}{correct_path}"
             buffer.append(url)
             print(url)
-        
+
     if args.output:
         if not os.path.exists(args.output):
-            mode = 'w'
+            mode = "w"
         else:
-            mode = 'a'
+            mode = "a"
         try:
             with open(args.output, mode=mode) as file:
                 for line in buffer:
                     file.write(f"{line}\n")
-                print(f'Result saved in {args.output}')
+                print(f"Result saved in {args.output}")
         except Exception as e:
             print(f"Error with open file {args.output}")
             print(f"Error: {e}")
+
 
 if __name__ == "__main__":
     main()
