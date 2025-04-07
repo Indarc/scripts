@@ -7,6 +7,8 @@
 ## Installing:
 ```sh
 git clone https://github.com/Indarc/scripts.git
-cd scripts
-pipx install .
+```
+- Export to path
+```
+export PATH=$PATH:~/path/to/scripts
 ```
