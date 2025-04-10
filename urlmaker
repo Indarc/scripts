@@ -10,14 +10,18 @@ def main():
     parser.add_argument("-i", "--input", default=None, type=str, required=False, help="Input (/path/to/complite)")
     parser.add_argument("-if", "--file", type=str, required=False, help="Path to file with url-paths")
     parser.add_argument("-s", "--secure", action="store_true", help="Return https://...")
-    parser.add_argument("domain", type=str, help="Domain")
+    parser.add_argument("-d", "--domain", required=False, type=str, help="Domain to concatinate with url")
     parser.add_argument("-o", "--output", type=str, default=None, required=False, help="Output file")
 
     args = parser.parse_args()
-
-    protocol = "https://" if args.secure else "http://"
-    raw_domain = args.domain
-    correct_domain = re.sub(r"[^a-zA-Z0-9.-]", "", raw_domain)
+    
+    if not args.domain:
+        protocol = ''
+        correct_domain = ''
+    else:
+        protocol = "https://" if args.secure else "http://"
+        raw_domain = args.domain
+        correct_domain = re.sub(r"[^a-zA-Z0-9.-]", "", raw_domain)
 
     buffer = []
     pattern = r"\[.*?m(\S+)\s+\[Status"
