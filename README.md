@@ -6,6 +6,7 @@ etc. `/api/v1/store       [Status: 200, Size: 123192, ...]` --> `http://example.
 - actpoints (actuator_endpoints) : generates actuator-directories and sends requests to the domain
 - pingsweep : ping with changing ip
 - urlmaker : extract only ip from input lines and return them
+- hash_check : indentifies input hash line and try decript it
 
 ## Installing:
 - Clone repository
