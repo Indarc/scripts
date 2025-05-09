@@ -1,4 +1,4 @@
-# My scripts
+# Scripts
 - urlmaker : create URLs from txt files with trash data 
 etc. `/api/v1/store       [Status: 200, Size: 123192, ...]` --> `http://example.com/api/v1/store`
 - cplines : copy lines in files
