@@ -4,6 +4,8 @@ etc. `/api/v1/store       [Status: 200, Size: 123192, ...]` --> `http://example.
 - cplines : copy lines in files
 - inslines : insert lines to file
 - actpoints (actuator_endpoints) : generates actuator-directories and sends requests to the domain
+- pingsweep : ping with changing ip
+- urlmaker : extract only ip from input lines and return them
 
 ## Installing:
 - Clone repository
